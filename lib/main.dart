@@ -42,6 +42,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  var _maleColor = Colors.lime;
+  var _femaleColor = Colors.green;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,31 +52,52 @@ class _MyHomePageState extends State<MyHomePage> {
           child: Text(widget.title),
         ),
       ),
-      backgroundColor: Colors.deepPurple[900],
       body: StoreConnector<AppState, AppState>(
         converter: (store) => store.state,
         builder: (context, state) => ListView(
           children: <Widget>[
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: const [
+              children: [
                 GenderButton(
-                  icon: Icon(
+                  color: _maleColor,
+                  icon: const Icon(
                     Icons.male,
                     color: Colors.white,
                     size: 50.0,
                   ),
                   string: 'MALE',
-                  onTap: setGender,
+                  onTap: () {
+                    setState(() {
+                      if (!state.isMale) {
+                        var temp = _maleColor;
+                        _maleColor = _femaleColor;
+                        _femaleColor = temp;
+                        StoreProvider.of<AppState>(context)
+                            .dispatch(ChangeGender());
+                      }
+                    });
+                  },
                 ),
                 GenderButton(
-                  icon: Icon(
+                  color: _femaleColor,
+                  icon: const Icon(
                     Icons.female,
                     color: Colors.white,
                     size: 50.0,
                   ),
                   string: 'FEMALE',
-                  onTap: setGender,
+                  onTap: () {
+                    setState(() {
+                      if (state.isMale) {
+                        var temp = _maleColor;
+                        _maleColor = _femaleColor;
+                        _femaleColor = temp;
+                        StoreProvider.of<AppState>(context)
+                            .dispatch(ChangeGender());
+                      }
+                    });
+                  },
                 ),
               ],
             ),
@@ -151,6 +174,33 @@ class _MyHomePageState extends State<MyHomePage> {
               ],
             ),
           ],
+        ),
+      ),
+      bottomNavigationBar: TextButton(
+        onPressed: setGender,
+        child: ColoredBox(
+          color: Colors.red,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
+            children: const [
+              SizedBox(height: 10.0),
+              Text(
+                'CALCULATE',
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
+              ),
+              SizedBox(height: 15.0),
+              Divider(
+                thickness: 5.0,
+                indent: 100.0,
+                endIndent: 100.0,
+              )
+            ],
+          ),
         ),
       ),
     );

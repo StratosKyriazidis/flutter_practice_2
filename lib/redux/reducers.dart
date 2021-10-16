@@ -10,7 +10,13 @@ AppState reducers(AppState prevState, dynamic action) {
     return prevState.copyWith(
       age: action.payload,
     );
+  } else if (action is UpdateHeight) {
+    return prevState.copyWith(
+      height: action.payload,
+    );
   } else {
-    return prevState.copyWith(height: action.payload);
+    return prevState.copyWith(
+      isMale: !prevState.isMale,
+    );
   }
 }

@@ -29,3 +29,5 @@ class UpdateHeight {
     this.payload,
   );
 }
+
+class ChangeGender {}

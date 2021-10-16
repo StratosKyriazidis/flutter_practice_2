@@ -27,7 +27,7 @@ class BottomPane extends StatelessWidget {
           child: ColoredBox(
             color: Colors.green,
             child: Padding(
-              padding: const EdgeInsets.all(10.0),
+              padding: const EdgeInsets.all(25.0),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
