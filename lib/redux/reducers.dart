@@ -14,9 +14,17 @@ AppState reducers(AppState prevState, dynamic action) {
     return prevState.copyWith(
       height: action.payload,
     );
-  } else {
+  } else if (action is ChangeGender) {
     return prevState.copyWith(
       isMale: !prevState.isMale,
+    );
+  } else if (action is UpdateBMI) {
+    return prevState.copyWith(
+      bmi: action.payload,
+    );
+  } else {
+    return prevState.copyWith(
+      bmiStatus: action.payload,
     );
   }
 }

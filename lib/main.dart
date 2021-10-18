@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_practice_1/redux/actions.dart';
+import 'package:flutter_practice_1/bmi_screen.dart';
+import 'redux/actions.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
-
 import 'redux/middleware.dart';
 import 'redux/reducers.dart';
 import 'redux/store.dart';
-import 'package:flutter_practice_1/bottom_pane.dart';
+import 'bottom_pane.dart';
 import "gender_button.dart";
 
 void main() {
@@ -25,8 +25,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return StoreProvider<AppState>(
       store: store,
-      child: const MaterialApp(
-        home: MyHomePage(title: 'BMI CALCULATOR'),
+      child: MaterialApp(
+        home: const MyHomePage(title: 'BMI CALCULATOR'),
+        routes: {'/calculate': (context) => const BMIScreen()},
       ),
     );
   }
@@ -138,8 +139,9 @@ class _MyHomePageState extends State<MyHomePage> {
                               divisions: 280,
                               onChanged: (double val) {
                                 setState(() {
+                                  int temp = val.toInt();
                                   StoreProvider.of<AppState>(context)
-                                      .dispatch(UpdateHeight(val.toString()));
+                                      .dispatch(UpdateHeight(temp.toString()));
                                 });
                               },
                             ),
@@ -176,35 +178,43 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ),
-      bottomNavigationBar: TextButton(
-        onPressed: setGender,
-        child: ColoredBox(
-          color: Colors.red,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            mainAxisSize: MainAxisSize.min,
-            children: const [
-              SizedBox(height: 10.0),
-              Text(
-                'CALCULATE',
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
+      bottomNavigationBar: StoreConnector<AppState, AppState>(
+        converter: (store) => store.state,
+        builder: (context, state) => TextButton(
+          onPressed: () {
+            setState(() {
+              StoreProvider.of<AppState>(context).dispatch(CalculateBMI());
+              StoreProvider.of<AppState>(context)
+                  .dispatch(CalculateBMIStatus());
+              Navigator.of(context).pushNamed('/calculate');
+            });
+          },
+          child: ColoredBox(
+            color: Colors.red,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              children: const [
+                SizedBox(height: 10.0),
+                Text(
+                  'CALCULATE',
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
                 ),
-              ),
-              SizedBox(height: 15.0),
-              Divider(
-                thickness: 5.0,
-                indent: 100.0,
-                endIndent: 100.0,
-              )
-            ],
+                SizedBox(height: 15.0),
+                Divider(
+                  thickness: 5.0,
+                  indent: 100.0,
+                  endIndent: 100.0,
+                )
+              ],
+            ),
           ),
         ),
       ),
     );
   }
 }
-
-void setGender() {}

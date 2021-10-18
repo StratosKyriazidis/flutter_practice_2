@@ -31,3 +31,23 @@ class UpdateHeight {
 }
 
 class ChangeGender {}
+
+class CalculateBMI {}
+
+class UpdateBMI {
+  String payload;
+
+  UpdateBMI(
+    this.payload,
+  );
+}
+
+class CalculateBMIStatus {}
+
+class UpdateBMIStatus {
+  String payload;
+
+  UpdateBMIStatus(
+    this.payload,
+  );
+}
