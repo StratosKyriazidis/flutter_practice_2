@@ -7,21 +7,24 @@ class BMIScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return StoreConnector<AppState, AppState>(
-      converter: (store) => store.state,
-      builder: (context, state) => Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const Text(
-            'YOUR BMI IS',
-            style: TextStyle(
-              fontSize: 24,
-              color: Colors.white,
-            ),
+    return Scaffold(
+      body: StoreConnector<AppState, AppState>(
+        converter: (store) => store.state,
+        builder: (context, state) => Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Text(
+                'YOUR BMI IS',
+                style: TextStyle(
+                  fontSize: 24,
+                ),
+              ),
+              Text(state.bmi),
+              Text(state.bmiStatus),
+            ],
           ),
-          Text(state.bmi),
-          Text(state.bmiStatus),
-        ],
+        ),
       ),
     );
   }

@@ -22,9 +22,11 @@ AppState reducers(AppState prevState, dynamic action) {
     return prevState.copyWith(
       bmi: action.payload,
     );
-  } else {
+  } else if (action is UpdateBMIStatus) {
     return prevState.copyWith(
       bmiStatus: action.payload,
     );
+  } else {
+    return prevState;
   }
 }

@@ -22,7 +22,7 @@ void appStateMiddleware(
         int.parse(store.state.height) /
         int.parse(store.state.height) *
         10000;
-    store.dispatch(UpdateBMI(bmi.toString()));
+    store.dispatch(UpdateBMI(bmi.toStringAsFixed(1)));
   } else if (action is CalculateBMIStatus) {
     double bmi = double.parse(store.state.bmi);
     if (bmi < 18.4) {

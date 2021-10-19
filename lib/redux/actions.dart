@@ -3,7 +3,7 @@ class IncreaseWeight {}
 class ReduceWeight {}
 
 class UpdateWeight {
-  String payload;
+  final String payload;
 
   UpdateWeight(
     this.payload,
@@ -15,7 +15,7 @@ class IncreaseAge {}
 class ReduceAge {}
 
 class UpdateAge {
-  String payload;
+  final String payload;
 
   UpdateAge(
     this.payload,
@@ -23,7 +23,7 @@ class UpdateAge {
 }
 
 class UpdateHeight {
-  String payload;
+  final String payload;
 
   UpdateHeight(
     this.payload,
@@ -35,7 +35,7 @@ class ChangeGender {}
 class CalculateBMI {}
 
 class UpdateBMI {
-  String payload;
+  final String payload;
 
   UpdateBMI(
     this.payload,
@@ -45,7 +45,7 @@ class UpdateBMI {
 class CalculateBMIStatus {}
 
 class UpdateBMIStatus {
-  String payload;
+  final String payload;
 
   UpdateBMIStatus(
     this.payload,

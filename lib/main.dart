@@ -180,17 +180,17 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       bottomNavigationBar: StoreConnector<AppState, AppState>(
         converter: (store) => store.state,
-        builder: (context, state) => TextButton(
-          onPressed: () {
-            setState(() {
-              StoreProvider.of<AppState>(context).dispatch(CalculateBMI());
-              StoreProvider.of<AppState>(context)
-                  .dispatch(CalculateBMIStatus());
-              Navigator.of(context).pushNamed('/calculate');
-            });
-          },
-          child: ColoredBox(
-            color: Colors.red,
+        builder: (context, state) => ColoredBox(
+          color: Colors.red,
+          child: TextButton(
+            onPressed: () {
+              setState(() {
+                StoreProvider.of<AppState>(context).dispatch(CalculateBMI());
+                StoreProvider.of<AppState>(context)
+                    .dispatch(CalculateBMIStatus());
+                Navigator.of(context).pushNamed('/calculate');
+              });
+            },
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               mainAxisSize: MainAxisSize.min,
